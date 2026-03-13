@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+
+build/
+dist/
+
+backups/
+
+vault.dat
+master.hash
+vault.json
+
+*.dat
+desktop.ini

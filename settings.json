@@ -1,0 +1,7 @@
+{
+    "clipboard_clear_time": 5,
+    "clipboard_auto_clear_enabled": true,
+    "vault_auto_lock_enabled": true,
+    "vault_auto_lock_time": 300,
+    "theme": "light"
+}
