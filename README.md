@@ -48,4 +48,7 @@ The application stores credentials in an encrypted vault protected by a master p
 
 ## Installation
 
-Clone the repository
+Clone the repository:
+
+```bash
+git clone https://github.com/czuameni/golden-vault.git
