@@ -1,4 +1,4 @@
-# 🔐 Louketo Password Manager
+#  Louketo Password Manager
 
 Louketo is a lightweight desktop password manager written in Python.
 
@@ -8,18 +8,18 @@ The application stores credentials in an encrypted vault protected by a master p
 
 ## Features
 
-- 🔐 Master password authentication
-- 🔒 Encrypted password vault
-- 🔎 Search stored credentials
-- 📋 Clipboard copy for login/password
-- ➕ Add and edit entries
-- ❌ Delete entries
-- 🔑 Password generator
-- 📊 Password strength meter
-- 💾 Vault backup system
-- 📤 Export vault to JSON
-- 📥 Import vault from JSON
-- 🌙 Light / Dark theme
+-  Master password authentication
+-  Encrypted password vault
+-  Search stored credentials
+-  Clipboard copy for login/password
+-  Add and edit entries
+-  Delete entries
+-  Password generator
+-  Password strength meter
+-  Vault backup system
+-  Export vault to JSON
+-  Import vault from JSON
+-  Light / Dark theme
 
 ---
 
