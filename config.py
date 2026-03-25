@@ -15,7 +15,6 @@ DEFAULT_SETTINGS = {
 
 def load_settings():
 
-    # Create file if not exists
     if not os.path.exists(SETTINGS_FILE):
         save_settings(DEFAULT_SETTINGS)
         return DEFAULT_SETTINGS
@@ -24,7 +23,6 @@ def load_settings():
         with open(SETTINGS_FILE, "r") as f:
             data = json.load(f)
 
-        # Merge missing defaults
         for key, value in DEFAULT_SETTINGS.items():
             if key not in data:
                 data[key] = value
