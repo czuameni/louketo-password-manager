@@ -51,10 +51,6 @@ class LouketoGUI:
         self.root.geometry("500x400")
         self.root.configure(bg="#1e1e1e")
 
-        # -------------------------
-        # AUTH
-        # -------------------------
-
         self.auth = AuthManager()
 
         if not self.auth.master_password_exists():
@@ -82,9 +78,6 @@ class LouketoGUI:
         self.vault = Vault(pwd)
         self.clip = ClipboardManager()
 
-        # -------------------------
-        # UI ELEMENTS
-        # -------------------------
         self.buttons = []
 
         self.search_frame = tk.Frame(root)
@@ -111,11 +104,6 @@ class LouketoGUI:
         )
         btn_reset.grid(row=0, column=2, padx=5)
         self.buttons.append(btn_reset)
-
-
-        # =========================
-        # TOGGLE THEME BUTTON
-        # =========================
 
         btn_toggle = tk.Button(
             root,
@@ -211,8 +199,6 @@ class LouketoGUI:
         self.apply_theme()
         self.refresh_list()
 
-    # =========================
-
     def refresh_list(self):
 
         self.listbox.delete(0, tk.END)
@@ -235,23 +221,19 @@ class LouketoGUI:
 
         self.root.configure(bg=theme["bg"])
 
-        # Search frame
         self.search_frame.configure(bg=theme["bg"])
 
-        # Entry
         self.search_entry.configure(
             bg=theme["entry_bg"],
             fg=theme["fg"],
             insertbackground=theme["fg"]
         )
 
-        # Listbox
         self.listbox.configure(
             bg=theme["entry_bg"],
             fg=theme["fg"]
         )
 
-        # Buttons
         for btn in self.buttons:
             btn.configure(
                 bg=theme["button_bg"],
@@ -259,9 +241,6 @@ class LouketoGUI:
             )
 
 
-    # =========================
-    # TOGGLE THEME
-    # =========================
 
     def toggle_theme(self):
 
@@ -271,14 +250,12 @@ class LouketoGUI:
             else "dark"
         )
 
-        # ===== SAVE TO SETTINGS =====
         settings = load_settings()
         settings["theme"] = self.theme
         save_settings(settings)
 
         self.apply_theme()
 
-    # =========================
 
     def search_entries(self):
 
@@ -298,7 +275,6 @@ class LouketoGUI:
                 f"{e.service} | {e.login}"
             )
 
-    # =========================
 
     def get_selected_entry(self):
 
@@ -312,7 +288,6 @@ class LouketoGUI:
             )
             return None
 
-    # =========================
 
     def copy_password(self):
 
@@ -325,7 +300,6 @@ class LouketoGUI:
                 "Password copied to clipboard."
             )
 
-    # =========================
 
     def copy_login(self):
 
@@ -338,7 +312,6 @@ class LouketoGUI:
                 "Login copied to clipboard."
             )
 
-    # =========================
 
     def delete_entry(self):
 
@@ -348,7 +321,6 @@ class LouketoGUI:
             self.vault.delete_entry(entry.service)
             self.refresh_list()
 
-    # =========================
 
     def backup_vault(self):
 
@@ -359,7 +331,6 @@ class LouketoGUI:
             "Vault backup created."
         )
 
-    # =========================
 
     def add_entry_window(self):
 
@@ -368,9 +339,6 @@ class LouketoGUI:
         window.title("Add Entry")
         window.geometry("300x200")
 
-        # =========================
-        # STRENGTH METER INIT
-        # =========================
 
         meter = PasswordStrengthMeter()
 
@@ -403,9 +371,6 @@ class LouketoGUI:
         )
         password_entry.pack()
 
-        # =========================
-        # SHOW / HIDE BUTTON
-        # =========================
 
         def toggle_password():
 
@@ -424,9 +389,6 @@ class LouketoGUI:
         toggle_btn.pack()
 
 
-        # =========================
-        # STRENGTH LABEL
-        # =========================
 
         strength_label = tk.Label(
             window,
@@ -434,9 +396,6 @@ class LouketoGUI:
         )
         strength_label.pack()
 
-        # =========================
-        # STRENGTH UPDATE FUNCTION
-        # =========================
 
         def update_strength(*args):
 
@@ -453,15 +412,10 @@ class LouketoGUI:
                 text=f"Strength: {label}"
             )
 
-        # LIVE UPDATE WHEN TYPING
         password_entry.bind(
             "<KeyRelease>",
             update_strength
         )
-
-        # -------------------------
-        # GENERATOR BUTTON
-        # -------------------------
 
         def generate_password():
 
@@ -489,8 +443,6 @@ class LouketoGUI:
         ).pack(pady=5)
 
 
-        # -------------------------
-
         def save_entry():
 
             service = service_entry.get()
@@ -512,17 +464,12 @@ class LouketoGUI:
             self.refresh_list()
             window.destroy()
 
-        # -------------------------
 
         tk.Button(
             window,
             text="Save",
             command=save_entry
         ).pack(pady=10)
-
-    # =========================
-    # EDIT ENTRY WINDOW
-    # =========================
 
     def edit_entry_window(self):
 
@@ -551,9 +498,6 @@ class LouketoGUI:
         password_entry.insert(0, entry.password)
         password_entry.pack()
 
-        # =========================
-        # SAVE CHANGES
-        # =========================
         def save_changes():
 
             new_service = service_entry.get()
@@ -567,10 +511,8 @@ class LouketoGUI:
                 )
                 return
 
-            # DELETE OLD
             self.vault.delete_entry(entry.service)
 
-            # ADD UPDATED
             from models import Entry
             updated_entry = Entry(
                 new_service,
@@ -583,19 +525,11 @@ class LouketoGUI:
             self.refresh_list()
             window.destroy()
 
-        # =========================
-        # BUTTON
-        # =========================
-
         tk.Button(
             window,
             text="Save Changes",
             command=save_changes
         ).pack(pady=10)
-
-    # =========================
-    # EXPORT VAULT
-    # =========================
 
     def export_vault_gui(self):
 
@@ -619,9 +553,6 @@ class LouketoGUI:
             "Export",
             "Vault exported successfully."
         )
-    # =========================
-    # IMPORT VAULT
-    # =========================
 
     def import_vault_gui(self):
 
@@ -641,10 +572,6 @@ class LouketoGUI:
             "Vault import completed."
         )
 
-
-# =============================
-# RUN GUI
-# =============================
 
 if __name__ == "__main__":
 
