@@ -5,7 +5,6 @@ from generator import PasswordGenerator
 from clipboard import ClipboardManager
 from strength import PasswordStrengthMeter
 
-# ===== AUTO-LOCK IMPORT =====
 from vault_lock import (
     start_auto_lock_timer,
     is_vault_locked,
@@ -61,10 +60,6 @@ def search_entries(vault):
     for i, e in enumerate(results, start=1):
         print(f"{i}. {e.service} | {e.login}")
 
-    # -------------------------
-    # Clipboard options
-    # -------------------------
-
     choice = input(
         "\nSelect entry number to copy data (Enter to skip): "
     )
@@ -101,11 +96,6 @@ def delete_entry(vault):
     service = input("Service to delete: ")
     vault.delete_entry(service)
     print("Deleted (if existed).")
-
-
-# =========================
-# PASSWORD GENERATOR CLI
-# =========================
 
 def generate_password():
 
@@ -163,11 +153,9 @@ def main():
 
     auth = AuthManager()
 
-    # First time setup
     if not auth.master_password_exists():
         auth.set_master_password()
 
-    # Login
     master_password = auth.verify_master_password()
 
     if not master_password:
@@ -178,7 +166,6 @@ def main():
     start_auto_lock_timer()
 
     while True:
-        # Auto-lock check
         if is_vault_locked():
 
             print("Vault locked.")
