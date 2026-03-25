@@ -6,11 +6,6 @@ from models import Entry
 from crypto import CryptoManager
 from backup import create_backup
 
-
-# =========================
-# PATH RESOLVER
-# =========================
-
 def get_app_path(filename):
 
     if getattr(sys, "frozen", False):
@@ -20,16 +15,10 @@ def get_app_path(filename):
 
     return os.path.join(base_path, filename)
 
-
-# =========================
-# VAULT CLASS
-# =========================
-
 class Vault:
 
     def __init__(self, master_password, filename="vault.dat"):
 
-        # REAL FILE PATH
         self.filename = get_app_path(filename)
 
         self.entries = []
@@ -39,10 +28,6 @@ class Vault:
         if os.path.exists(self.filename):
             self.load()
 
-    # -------------------------
-    # ADD
-    # -------------------------
-
     def add_entry(self, entry):
 
         entry.password = self.crypto.encrypt_password(
@@ -51,10 +36,6 @@ class Vault:
 
         self.entries.append(entry)
         self.save()
-
-    # -------------------------
-    # LIST
-    # -------------------------
 
     def list_entries(self):
 
@@ -70,10 +51,6 @@ class Vault:
 
         return decrypted_list
 
-    # -------------------------
-    # DELETE
-    # -------------------------
-
     def delete_entry(self, service):
 
         self.entries = [
@@ -82,10 +59,6 @@ class Vault:
         ]
 
         self.save()
-
-    # -------------------------
-    # SEARCH
-    # -------------------------
 
     def search_entries(self, query):
 
@@ -106,36 +79,25 @@ class Vault:
 
         return decrypted_results
 
-    # =========================
-    # SAVE
-    # =========================
 
     def save(self):
 
-        # BACKUP FIRST
         try:
             create_backup(self.filename)
         except:
             pass
 
-        # SERIALIZE
         data = json.dumps(
             [e.to_dict() for e in self.entries]
         )
 
-        # ENCRYPT
         encrypted_data = self.crypto.encrypt_vault(
             data,
             self.key
         )
 
-        # WRITE FILE
         with open(self.filename, "w") as f:
             f.write(encrypted_data)
-
-    # =========================
-    # LOAD
-    # =========================
 
     def load(self):
 
