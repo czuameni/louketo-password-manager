@@ -2,11 +2,6 @@ import json
 from datetime import datetime
 from models import Entry
 
-
-# =========================
-# EXPORT
-# =========================
-
 def export_vault(vault, file_path=None):
 
     entries = vault.list_entries()
@@ -35,10 +30,6 @@ def export_vault(vault, file_path=None):
 
     print(f"[Export] Created: {file_path}")
 
-
-# =========================
-# IMPORT
-# =========================
 
 def import_vault(vault, file_path):
 
