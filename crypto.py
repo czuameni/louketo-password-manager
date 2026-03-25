@@ -11,10 +11,6 @@ class CryptoManager:
 
     SHIFT = 3
 
-    # =========================
-    # PASSWORD ENCRYPTION
-    # =========================
-
     def encrypt_password(self, text):
         encrypted = ""
         for char in text:
@@ -27,16 +23,8 @@ class CryptoManager:
             decrypted += chr(ord(char) - self.SHIFT)
         return decrypted
 
-    # =========================
-    # KEY GENERATION
-    # =========================
-
     def generate_key(self, master_password):
         return hashlib.sha256(master_password.encode()).digest()
-
-    # =========================
-    # VAULT ENCRYPTION
-    # =========================
 
     def encrypt_vault(self, data, key):
 
