@@ -8,14 +8,9 @@ class AuthManager:
     def __init__(self, filename="master.hash"):
         self.filename = filename
 
-    # -------------------------
 
     def hash_password(self, password):
         return hashlib.sha256(password.encode()).hexdigest()
-
-    # =========================
-    # CHECK PASSWORD (GUI LOGIN)
-    # =========================
 
     def check_password(self, password):
 
@@ -30,12 +25,8 @@ class AuthManager:
         return hashed == stored_hash
 
 
-    # -------------------------
-
     def master_password_exists(self):
         return os.path.exists(self.filename)
-
-    # -------------------------
 
     def set_master_password(self):
 
@@ -57,7 +48,6 @@ class AuthManager:
             print("Master password set.\n")
             break
 
-    # -------------------------
 
     def verify_master_password(self):
 
